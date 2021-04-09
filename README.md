@@ -6,7 +6,6 @@
 ## Objectif
 Poly veut changer le système de gestion des notes. Pour cela, ils font appel à vous!
 
-<img src="data/exemple.png" width="300">
 
 Dans ce projet, vous devez implémenter une classe `Cours` avec les propriétés suivantes :
 - Un cours est représenté par un nom, un sigle, un nombre de crédits et un dictionnaire d'évaluation. Ce dictionnaire a comme clé le nom de l'évaluation et comme valeur sa pondération.
