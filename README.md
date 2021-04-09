@@ -1,62 +1,42 @@
-# Projet 1 - Que de contraintes...
+# Projet 4 - Registrariat de Poly a besoin d'aide
 
 <!--- Changer la date de remise en modifiant le URL--->
-#### :alarm_clock: [Date de remise le lundi 28 septembre à 23h59](https://www.timeanddate.com/countdown/generic?iso=20200928T2359&p0=165&msg=Remise&font=cursive&csz=1#)
+#### :alarm_clock: [Date de remise le dimanche 18 avril à 23h59](https://www.timeanddate.com/countdown/generic?iso=20201206T2359&p0=165&msg=Remise&font=cursive&csz=1#)
 
 ## Objectif
-Concevoir et implémenter un programme permettant de calculer la déformation d'une poutre encastrée sous l'effet d'un poids à son extrémité.
-Pour ce faire, vous devez compléter les deux programmes `poutre_rect.py` et `poutre_section.py`.
+Poly veut changer le système de gestion des notes. Pour cela, ils font appel à vous!
 
-## Partie 1 : Poutre rectangulaire
-À faire : compléter le fichier `poutre_rect.py`
+<img src="data/exemple.png" width="300">
 
-Considérant que la section de la poutre est rectangulaire tel que présenté à la figure ci-dessous, et considérant les données fournies dans le fichier, vous devez écrire un programme permettant de calculer la déformation maximale de la poutre (`delta_max`). Vous devrez au préalable calculer le moment quadratique de la section (Appelé *inertie* dans le code source).
+Dans ce projet, vous devez implémenter une classe `Cours` avec les propriétés suivantes :
+- Un cours est représenté par un nom, un sigle, un nombre de crédits et un dictionnaire d'évaluation. Ce dictionnaire a comme clé le nom de l'évaluation et comme valeur sa pondération.
+- La classe `Cours` définit un constructeur qui prend en entrée son nom, son sigle et les crédits du cours. Le dictionnaire d'évaluation est vide au départ.
+- La classe `Cours` implémente une fonction ```ajout_evaluation(self, nom_eval, ponderation)``` qui permet d'ajouter une évaluation au dictionnaire. L'évaluation doit être unique au cours. Sinon, un message d'erreur doit être affiché.
+- une fonction de conversion `__str__` permettant d'avoir le nom du cours, son sigle et son nombre de crédits sous la forme suivante: `NOM DU COURS (SIGLE) de X credits`. Par exemple `Introduction à la programmation (INF1007) de 4 credits`.
+- une fonction de conversion `__repr__` retournant la classe et la valeur des attributs du cours sauf l'attribut evaluations. Par exemple: `Cours(nom=Introduction à la programmation, sigle=INF1007, credit=INF1007)`
 
-![Poutre encastrée](data/poutre_section.png)
+La classe `Eleve` est une classe très simple qui doit implémenter les caractéristiques suivantes :
+- un constructeur qui prend en entrée son nom, sous la forme d'une chaîne de caractère, et son sigle. Elle doit aussi initialiser une liste de cours vide au départ,
+- une fonction `ajout_cours(self, cours)` qui permet d'ajouter un cours à la liste de cours,
+- une fonction `calculer_note(self)` qui donne une note aléatoire entre 50 et 100 pour chaque évaluation de l'élève et calcule la note de chaque cours.
+- une fonction de conversion `__str__` permettant d'afficher le nom de l'élève, son matricule et les cours qu'ils prends. Par exemple, `Le nom de l'eleve est John Doe et son matricule est 555555. Les cours qu'il prends sont: Introduction à la programmation, Calcul 1`
+- une fonction de conversion `__repr__` retournant la classe et la valeur des attributs de l'élève. Par exemple `Eleve(nom=John Doe, matricule=555555, cours=[Cours(nom=Introduction à la programmation, sigle=INF1007, credit=INF1007, Cours(nom=Calcul 1, sigle=MTH1101, credit=MTH1101])`
 
-Exemple d'affichage :
-```
-La déformation maximale de la poutre est 42.24 mm
-```
-
-## Partie 2 : Optimisation de contraintes
-À faire : compléter le fichier `poutre_section.py`
-
-Concevoir un programme qui permet, considérant les données d'entrée fournies dans le fichier, d'afficher le type de section minimisant la déformation maximale de la poutre.
-
-Votre programme doit afficher la réponse suivant une nomenclature précise :
-```
-Le type de section minimisant la déformation maximale est <section>, avec une déformation de <delta_max> mm
-```
-où :
-- <section> est le type de section, pouvant prendre les valeurs : `rectangulaire`, `carrée`, `ronde`et `creuse`.
-- <delta_max> est la déformation maximale correspondant à ce type de section, arrondi avec deux décimales.
-
-Exemple d'affichage :
+Dans ce projet, vous devez compléter le fichier `exercice.py`. Le bloc d'instruction dans la fonction `main` vous montre un cas concret d'utilisation du programme, qui evrait vous fournir un affichage tel que présenté ci-dessous :
 
 ```
-Le type de section minimisant la déformation maximale est ronde, avec une déformation de 20.07 mm
+Le nom de l'eleve est John Doe et son matricule est 555555. Les cours qu'il prends sont: Introduction à la programmation, Calcul 1 
+Le nom de l'eleve est Jane Doe et son matricule est 444444. Les cours qu'il prends sont: Programmation orientée objet avancée, Calcul 2 
+L'evaluation existe déjà!
+Bulletin de l'eleve John Doe (555555)
+	Pour le cours Introduction à la programmation (INF1007) de 4 credits
+		La note obtenu à l'évaluation intra est 54%
+		La note obtenu à l'évaluation final est 64%
+		La moyenne du cours est 60.5%
+	Pour le cours Calcul 1 (MTH1101) de 3 credits
+		La note obtenu à l'évaluation intra est 92%
+		La note obtenu à l'évaluation final est 71%
+		La moyenne du cours est 79.4%
+Cours(nom=Introduction à la programmation, sigle=INF1007, credit=INF1007)
+Eleve(nom=John Doe, matricule=555555, cours=[Cours(nom=Introduction à la programmation, sigle=INF1007, credit=INF1007), Cours(nom=Calcul 1, sigle=MTH1101, credit=MTH1101)])
 ```
-
-Pour résoudre cet exercice, vous devez utiliser des structures de contrôles.
-
-## Ressources
-### Calcul de la déformation maximale
-Afin de résoudre ce problème, nous pouvons utiliser des formules connues en résistance des matériaux permettant de calculer la flèche maximale, ainsi que la déformée de la poutre.
-
-La formule de la déformation maximale pour une poutre encastrée est:
-
-![Equation](data/equation.png)
-
-où:
-
-- F est la force appliquée 
-- E est le module de Young
-- I est le moment quadratique de la section (appelé *inertie* dans les sources)
-- L est la longueur de la poutre
-
-### Calcul du moment quadratique de la section
-
-Le tableau suivant présente les formules permettant de calculer le moment quadratique de la poutre en fonction de son type de section (rectangulaire, carré, rond, creux) et de ses paramètres.
-
-![Formules de section](data/formules_sections.png)
